@@ -2,15 +2,19 @@
 
 using namespace std;
 
-void welcomeMessage()
-{
-	cout << "************************" << endl;
-	cout << "************************" << endl;
-	cout << "***** SCHOOL LUNCH *****" << endl;
-	cout << "************************" << endl;
-	cout << "************************\n" << endl;
+void welcomeMessage() {
+	cout << "***********************************************" << endl;
+	cout << "\t WELCOME TO THE ORDERING SYTEM" << endl;
+	cout << "***********************************************" << endl;
+}
 
-
+void mainMenu() {
+	cout << "\tPLEASE SELECT AN OPTION:" << endl;
+	cout << "\t--   [1] LOGIN    -- " << endl;
+	cout << "\t--   [2] SIGN UP  -- " << endl;
+	cout << "\t--   [3] MENU     -- " << endl;
+	cout << "\t--   [4] ORDER    -- " << endl;
+	cout << "\t--   [5] EXIT     -- " << endl;
 }
 
 void foodMenu()
@@ -48,7 +52,7 @@ void orderFood()
 	cout << "ORDER PLACEHOLDER" << endl;
 }
 
-double calculateBill(int choice, int quantity) {
+/*double calculateBill(int choice, int quantity) {
 	double price;
 	switch (choice) {
 	case 1:
@@ -78,63 +82,57 @@ double calculateBill(int choice, int quantity) {
 
 	}
 }
-
+*/
 
 int main()
 {
 	welcomeMessage();
+	bool should_exit = false;
+	do {
+		mainMenu();
 
-	int choice, quantity;
-	double totalBill;
-	char paymentMethod;
-	char menuChoice;
+		int choice, quantity;
+		double totalBill;
+		char paymentMethod;
+		char menuChoice;
 
-	cout << "1. Food Menu" << endl;
-	cout << "2. Order Food" << endl;
-	cout << "3. Exit" << endl;
+		while (true) {
+			cout << "\nPlease select an option: ";
+			cin >> menuChoice;
 
+			bool isValid = false;
 
-	while (true) {
-		cout << "\nPlease select an option: ";
-		cin >> menuChoice;
+			switch (menuChoice)
+			{
+			case '1':
+			case '2':
+			case '3':
+			case '4':
+			case '5':
+				isValid = true;
+				break;
+			default:
+				cout << "ERROR..." << endl;
+				continue;
+			}
 
-		bool isValid = false;
+			if (isValid) break;
+		}
 
 		switch (menuChoice)
 		{
-		case '1':
-		case '2':
 		case '3':
-			isValid = true;
+			cout << "***********************************************" << endl;
+			cout << "FOOD";
+			foodMenu();
+			cout << "***********************************************" << endl;
+			cout << "DRINKS";
+			drinkMenu();
+			cout << "***********************************************\n" << endl;
 			break;
-		default:
-			cout << "ERROR..." << endl;
-			continue;
+		case '5':
+			should_exit = true;
+			break;
 		}
-
-		if (isValid) break;
-	}
-
-	switch (menuChoice)
-	{
-	case '1':
-		cout << "******************************" << endl;
-		cout << "FOOD";
-		foodMenu();
-		cout << "******************************" << endl;
-		cout << "DRINKS";
-		drinkMenu();
-		cout << "******************************" << endl;
-	
-	case '2':
-		cout << "Enter your choice for food: ";
-		cin >> choice;
-		cout << "Enter quantity: ";
-		cin >> quantity;
-
-		totalBill = calculateBill(choice, quantity);
-
-		cout << "Total Bill: " << endl;
-
-	}
+	} while (!should_exit);
 }
