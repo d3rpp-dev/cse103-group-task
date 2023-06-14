@@ -64,7 +64,7 @@ void orderFood()
 	case 3:
 		price = 3.00;
 		break;
-	case 4: 
+	case 4:
 		price = 5.00;
 		break;
 	case 5:
@@ -86,9 +86,10 @@ void orderFood()
 
 int main()
 {
-	welcomeMessage();
+	
 	bool should_exit = false;
 	do {
+		welcomeMessage();
 		mainMenu();
 
 		int choice, quantity;
@@ -133,6 +134,11 @@ int main()
 		case '5':
 			should_exit = true;
 			break;
+		}
+		if (menuChoice != '5') {
+			cout << "\nPress any key to continue... " << endl;
+			_getch();
+			clear();
 		}
 	} while (!should_exit);
 }
