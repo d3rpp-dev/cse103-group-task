@@ -2,6 +2,24 @@
 
 using namespace std;
 
+const string NAMES[11] = {
+	// food
+	"PIE",
+	"HAMBURGER",
+	"SAUSAGE ROLL",
+	"CHICKEN WRAP",
+	"CHOCOLATE MUFFIN",
+	"BROWNIE",
+
+	// drinks
+	"COKE",
+	"ORANGE JUICE",
+	"APPLE JUICE",
+	"SPRITE",
+	"L&P"
+};
+
+//function for the welcome message
 void welcomeMessage() {
 	cout << "*******************************************************" << endl;
 	cout << "*****                                             *****" << endl;
@@ -10,51 +28,59 @@ void welcomeMessage() {
 	cout << "*******************************************************\n" << endl;
 }
 
+//function for the main menu
 void mainMenu() {
-	cout << "\t  [1] LOGIN" << endl;
-	cout << "\t  [2] SIGN UP" << endl;
-	cout << "\t  [3] MENU " << endl;
-	cout << "\t  [4] ORDER " << endl;
-	cout << "\t  [5] EXIT " << endl;
+	cout << "*******************************************************" << endl;
+	cout << "*      [1] LOGIN                                      *" << endl;
+	cout << "*      [2] SIGN UP                                    *" << endl;
+	cout << "*      [3] MENU                                       *" << endl;
+	cout << "*      [4] ORDER                                      *" << endl;
+	cout << "*      [5] EXIT                                       *" << endl;
+	
 }
 
+//function for the food menu
 void foodMenu()
 {
-	cout << "*\t                                              *" << endl;
-	cout << "*\t             FOOD:                            *" << endl;
-	cout << "*\t  1. PIE                -  $3.00              *" << endl;
-	cout << "*\t  2. HAMBURGER          -  $3.50              *" << endl;
-	cout << "*\t  3. SAUSAGE ROLL       -  $3.00              *" << endl;
-	cout << "*\t  4. CHICKEN WRAP       -  $5.00              *" << endl;
-	cout << "*\t  5. CHOCOLATE MUFFIN   -  $2.50              *" << endl;
-	cout << "*\t  6. BROWNIE            -  $2.00              *" << endl;
-	cout << "*\t                                              *" << endl;
+	cout << "*                                                     *" << endl;
+	cout << "*                 FOOD:                               *" << endl;
+	cout << "*      1. PIE                -  $3.00                 *" << endl;
+	cout << "*      2. HAMBURGER          -  $3.50                 *" << endl;
+	cout << "*      3. SAUSAGE ROLL       -  $3.00                 *" << endl;
+	cout << "*      4. CHICKEN WRAP       -  $5.00                 *" << endl;
+	cout << "*      5. CHOCOLATE MUFFIN   -  $2.50                 *" << endl;
+	cout << "*      6. BROWNIE            -  $2.00                 *" << endl;
+	cout << "*                                                     *" << endl;
 }
 
-
+//function for the drinks menu
 void drinkMenu()
 {
-	cout << "*\t                                              *" << endl;
-	cout << "*\t          DRINKS:                             *" << endl;
-	cout << "*\t  1. COKE               -  $2.00              *" << endl;
-	cout << "*\t  2. ORANGE JUICE       -  $2.00              *" << endl;
-	cout << "*\t  3. APPLE JUICE        -  $2.00              *" << endl;
-	cout << "*\t  4. SPRITE             -  $2.00              *" << endl;
-	cout << "*\t  5. L&P                -  $2.00              *" << endl;
-	cout << "*\t  6. NONE               -  $2.00              *" << endl;
-	cout << "*\t                                              *" << endl;
+	cout << "*                                                     *" << endl;
+	cout << "*                  DRINKS:                            *" << endl;
+	cout << "*      7. COKE               -  $2.00                 *" << endl;
+	cout << "*      8. ORANGE JUICE       -  $2.00                 *" << endl;
+	cout << "*      9. APPLE JUICE        -  $2.00                 *" << endl;
+	cout << "*      10. SPRITE            -  $2.00                 *" << endl;
+	cout << "*      11. L&P               -  $2.00                 *" << endl;
+	cout << "*                                                     *" << endl;
 }
 
+//function for the deals
 void deals()
 {
-	cout << "\nCURRENT DEALS:" << endl;
-	cout << "BUY A PIE & DRINK, GET BROWNIE FOR FREE!!!" << endl;
-	cout << "BUY A CHICKEN WRAP GET DRINK HALF PRICE!!!" << endl;
+	cout << "*                                                     *" << endl;
+	cout << "*        ***CURRENT DEALS***                          *" << endl;
+	cout << "*                                                     *" << endl;
+	cout << "*    BUY A PIE & DRINK, GET A BROWNIE FOR FREE!!!     *" << endl;
+	cout << "*     BUY A CHICKEN WRAP GET A DRINK FOR FREE!!!      *" << endl;
+	cout << "*                                                     *" << endl;
 }
 
 void orderFood()
 {
-	cout << "ORDER PLACEHOLDER" << endl;
+	int choice = utils::get_number<int>("Please enter the number corresponding to what you want");
+	cout << "You have chosen - " << NAMES[--choice] << endl;
 }
 
 int main()
@@ -66,13 +92,22 @@ int main()
 		welcomeMessage();
 		mainMenu();
 
-		int choice, quantity;
-		double totalBill;
-		char paymentMethod;
 		char menuChoice;
 
 		while (true) {
-			cout << "\n\t  Please select an option: ";
+			cout << "*                                                     *" << endl;
+			cout << "*    Please select an option:                         *" << endl;
+			cout << "*******************************************************";
+
+			HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+			CONSOLE_SCREEN_BUFFER_INFO info;
+			GetConsoleScreenBufferInfo(console, &info);
+
+			COORD new_pos = { 35, info.dwCursorPosition.Y - 1 };
+
+			SetConsoleCursorPosition(console, new_pos);
+
+
 			cin >> menuChoice;
 
 			bool isValid = false;
@@ -94,6 +129,8 @@ int main()
 			if (isValid) break;
 		}
 
+		clear();
+
 		switch (menuChoice)
 		{
 		case '3':
@@ -102,15 +139,20 @@ int main()
 			foodMenu();
 			cout << "*******************************************************" << endl;
 			drinkMenu();
-			cout << "*******************************************************\n" << endl;
+			cout << "*******************************************************" << endl;
+			deals();
+			cout << "*******************************************************" << endl;
 			if (menuChoice == '3') 
 				break;
-			cout << "\n Please enter your order: " << endl;
+			orderFood();
 			break;
 
 		case '5':
-			cout << "THANK YOU FOR USING THE SCHOOL LUNCH ORDERING SYSTEM" << endl;
-			cout << "GOODBYE" << endl;
+			cout << "********************************************************" << endl;
+			cout << "* THANK YOU FOR USING THE SCHOOL LUNCH ORDERING SYSTEM *" << endl;
+			cout << "*                       GOODBYE                        *" << endl;
+			cout << "********************************************************" << endl;
+			
 			should_exit = true;
 			break;
 		}
