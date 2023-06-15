@@ -20,6 +20,7 @@ void mainMenu() {
 
 void foodMenu()
 {
+	cout << "*\t                                              *" << endl;
 	cout << "*\t             FOOD:                            *" << endl;
 	cout << "*\t  1. PIE                -  $3.00              *" << endl;
 	cout << "*\t  2. HAMBURGER          -  $3.50              *" << endl;
@@ -27,18 +28,21 @@ void foodMenu()
 	cout << "*\t  4. CHICKEN WRAP       -  $5.00              *" << endl;
 	cout << "*\t  5. CHOCOLATE MUFFIN   -  $2.50              *" << endl;
 	cout << "*\t  6. BROWNIE            -  $2.00              *" << endl;
+	cout << "*\t                                              *" << endl;
 }
 
 
 void drinkMenu()
 {
-	cout << "*\t         DRINKS $2.00 EACH:                   *" << endl;
-	cout << "*\t  1. COKE                                     *" << endl;
-	cout << "*\t  2. ORANGE JUICE                             *" << endl;
-	cout << "*\t  3. APPLE JUICE                              *" << endl;
-	cout << "*\t  4. SPRITE                                   *" << endl;
-	cout << "*\t  5. L&P                                      *" << endl;
-	cout << "*\t  6. NONE                                     *" << endl;
+	cout << "*\t                                              *" << endl;
+	cout << "*\t          DRINKS:                             *" << endl;
+	cout << "*\t  1. COKE               -  $2.00              *" << endl;
+	cout << "*\t  2. ORANGE JUICE       -  $2.00              *" << endl;
+	cout << "*\t  3. APPLE JUICE        -  $2.00              *" << endl;
+	cout << "*\t  4. SPRITE             -  $2.00              *" << endl;
+	cout << "*\t  5. L&P                -  $2.00              *" << endl;
+	cout << "*\t  6. NONE               -  $2.00              *" << endl;
+	cout << "*\t                                              *" << endl;
 }
 
 void deals()
@@ -53,41 +57,10 @@ void orderFood()
 	cout << "ORDER PLACEHOLDER" << endl;
 }
 
-/*double calculateBill(int choice, int quantity) {
-	double price;
-	switch (choice) {
-	case 1:
-		price = 3.00;
-		break;
-	case 2:
-		price = 3.50;
-		break;
-	case 3:
-		price = 3.00;
-		break;
-	case 4:
-		price = 5.00;
-		break;
-	case 5:
-		price = 2.50;
-		break;
-	case 6:
-		price = 2.00;
-		break;
-	case 7:
-		price = 2.00;
-		break;
-	default:
-		price = 0.00;
-		break;
-
-	}
-}
-*/
-
 int main()
 {
-	
+	int order;
+
 	bool should_exit = false;
 	do {
 		welcomeMessage();
@@ -124,18 +97,24 @@ int main()
 		switch (menuChoice)
 		{
 		case '3':
+		case '4':
 			cout << "\n*******************************************************" << endl;
 			foodMenu();
 			cout << "*******************************************************" << endl;
 			drinkMenu();
 			cout << "*******************************************************\n" << endl;
+			if (menuChoice == '3') 
+				break;
+			cout << "\n Please enter your order: " << endl;
 			break;
+
 		case '5':
 			cout << "THANK YOU FOR USING THE SCHOOL LUNCH ORDERING SYSTEM" << endl;
 			cout << "GOODBYE" << endl;
 			should_exit = true;
 			break;
 		}
+
 		if (menuChoice != '5') {
 			cout << "\nPress any key to continue... " << endl;
 			_getch();
