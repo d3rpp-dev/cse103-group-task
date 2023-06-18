@@ -1,5 +1,7 @@
 #pragma once
 #include "Common.h"
+#include "Accounts.h"
+#include "Menus.h"
 
 #include "Menus.h" 
 #include "orderFood.h"
@@ -13,6 +15,8 @@ int main()
 {
 	int order;
 
+	Accounts accs{};
+	
 	bool should_exit = false;
 	do {
 		menus::welcomeMessage();

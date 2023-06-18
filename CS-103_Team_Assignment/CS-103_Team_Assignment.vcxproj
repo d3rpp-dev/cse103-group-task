@@ -143,6 +143,7 @@
     <ClCompile Include="Sha256.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Accounts.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="Payments.h" />
     <ClInclude Include="orderFood.h" />
