@@ -1,4 +1,8 @@
 #pragma once
+
+#ifndef _COMMON
+#define _COMMON
+
 #include <iostream>
 #include <iomanip>
 #include <conio.h>
@@ -178,3 +182,5 @@ namespace utils {
 		}
 	}
 }
+
+#endif
