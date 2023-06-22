@@ -16,7 +16,8 @@ private:
 	std::vector<Account> _accounts = {};
 
 	inline bool load() {
-		std::ifstream f("accounts.bin");
+		std::ifstream f;
+		f.open("accounts.bin");
 
 		if (!f.good()) {
 			// file does not exist or couldn't be read
@@ -29,8 +30,9 @@ private:
 
 			Account acc{};
 
-			while ((pos = line.find(",")) != std::string::npos) {
+			if ((pos = line.find(",")) != std::string::npos) {
 				tokens.push_back(line.substr(0, pos));
+				tokens.push_back(line.substr(pos + 1));
 			}
 
 			if (tokens.size() >= 2) {
@@ -48,7 +50,8 @@ private:
 
 	inline bool save() {
 		// open file with write and truncate mode	
-		std::ofstream f("accounts.bin", std::ios::out | std::ios::trunc);
+		std::ofstream f;
+		f.open("accounts.bin", std::ios::out | std::ios::trunc);
 
 		if (!f.good()) {
 			return false;
@@ -88,7 +91,7 @@ public:
 		Sha256 sha{};
 		sha.update(password_raw);
 
-		Account acc{
+		Account acc {
 			account_name,
 			Sha256::to_string(sha.digest())
 		};
@@ -97,14 +100,71 @@ public:
 		save();
 	}
 
-	bool validate_password(const std::string& account_name, const std::string& password) {
+	Account* validate_password(const std::string& account_name, const std::string& password) {
 		Account* acc = find_account(account_name);
-		if (acc == nullptr) return false;
+		if (acc == nullptr) return nullptr;
 
 		Sha256 sha{};
 		sha.update(password);
 
-		return Sha256::to_string(sha.digest()) == acc->password_hash;
+		return Sha256::to_string(sha.digest()) == acc->password_hash ? acc : nullptr;
 	}
 };
 
+Account* login(Accounts* accts) {
+	Account* acc_ = nullptr;
+	std::string account_name = "";
+
+	do {
+		account_name = utils::get_line("Account Username");
+		trim::trim(account_name);
+
+		acc_ = accts->find_account(account_name);
+		
+		if (acc_ == nullptr) {
+			std::cout << RED << "Unknown Account Name - " << RESET << "Please Try Again" << std::endl;
+		}
+	} while (acc_ == nullptr);
+
+	int attempts = 0;
+	Account* acc = nullptr;
+	do {
+		std::string password_attempt = utils::get_password("Account Password (it won't appear in console, but we will see it)");
+
+		acc = accts->validate_password(account_name, password_attempt);
+
+		if (acc == nullptr) {
+			std::cout << RED << "Invalid Password, please try again" << RESET << std::endl;
+			attempts++;
+		}
+		else {
+			std::cout << GREEN << "Signed In" << RESET << std::endl;
+			return acc;
+		}
+	} while (attempts < 3);
+
+
+	std::cout << RED << "Too many failed attempts, returning home" << RESET << std::endl;
+	return nullptr;
+}
+
+void sign_up(Accounts* accts) {
+	std::string account_name = utils::get_line("Account Username");
+	trim::trim(account_name);
+
+	std::string password = "";
+
+	do {
+		std::string attempt_1 = utils::get_password("Account Password");
+		std::string confirm_1 = utils::get_password("Confirm Password");
+
+		if (attempt_1 == confirm_1) {
+			password = attempt_1;
+		}
+		else {
+			std::cout << RED << "Passwords do NOT match, try again" << RESET << std::endl;
+		}
+	} while (password == "");
+
+	accts->add_account(account_name, password);
+}

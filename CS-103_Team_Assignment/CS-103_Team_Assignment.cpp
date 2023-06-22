@@ -13,14 +13,33 @@ using namespace menus;
 
 int main()
 {
-	int order;
-
 	Accounts accs{};
+	Account* current_account = nullptr;
 	
 	bool should_exit = false;
 	do {
+		clear();
+		if (current_account == nullptr) {
+			cout << "*                                                     *" << endl;
+			cout << "*    Not Signed In                                    *" << endl;
+			cout << "*                                                     *" << endl;
+		}
+		else {
+			int total_width_of_name = 33;
+
+			cout << "*                                                     *" << endl;
+			cout << "*    Signed In As: ";
+
+			cout << current_account->account_name;
+
+			for (uint8_t i = 0; i < (total_width_of_name - current_account->account_name.size()); i++) 
+				cout << " ";
+			
+			cout << "  *" << endl;
+			cout << "*                                                     *" << endl;
+		}
 		menus::welcomeMessage();
-		menus::mainMenu();
+		menus::mainMenu(current_account != nullptr);
 
 		char menuChoice;
 
@@ -40,6 +59,8 @@ int main()
 
 			menuChoice = utils::get_number<char>("", false);
 
+			utils::to_lower(menuChoice);
+
 			bool isValid = false;
 
 			switch (menuChoice)
@@ -49,6 +70,8 @@ int main()
 			case '3':
 			case '4':
 			case '5':
+			case '6':
+			case 'e':
 				isValid = true;
 				break;
 			default:
@@ -65,8 +88,23 @@ int main()
 
 		switch (menuChoice)
 		{
+		case '1':
+			// login
+			current_account = login(&accs);
+			break;
+		case '2':
+			// sign up
+			sign_up(&accs);
+			break;
 		case '3':
+			// sign out
+			current_account = nullptr;
+			std::cout << "Signed Out" << std::endl;
+			break;
 		case '4':
+			// menu
+		case '5':
+			// order
 			cout << "\n*******************************************************" << endl;
 			menus::foodMenu();
 			cout << "*******************************************************" << endl;
@@ -74,18 +112,23 @@ int main()
 			cout << "*******************************************************" << endl;
 			menus::deals();
 			cout << "*******************************************************" << endl;
-			if (menuChoice == '3')
+			// menu printed regardless
+			// so print menu to prevent code duplication
+			// if was menu only break here, otherwise 
+			// continue through ordering process
+			if (menuChoice == '4')
 				break;
 			cart = orderFood();
 			billUser(&cart);
 			break;
-		case '5':
+		case '6':
+		case 'e': // E to *E*xit
 			menus::exitMessage();
 			should_exit = true;
 			break;
 		}
 
-		if (menuChoice != '5') {
+		if (menuChoice != '6' && menuChoice != 'e') {
 			cout << "\nPress any key to continue... " << endl;
 			auto _ = _getch(); // to make the lint stfu
 			clear();
