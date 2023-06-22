@@ -60,4 +60,10 @@ namespace menus {
 		cout << "*    BUY A CHICKEN WRAP GET A BROWNIE FOR FREE!!!     *" << endl;
 		cout << "*                                                     *" << endl;
 	}	
+
+	void exitMessage() 
+	{
+		cout << "ENDING PROGRAMME..." << endl;
+		cout << "GOOBYE" << endl;
+	}
 }
