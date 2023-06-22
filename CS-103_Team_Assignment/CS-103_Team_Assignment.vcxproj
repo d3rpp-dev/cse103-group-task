@@ -144,6 +144,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h" />
+    <ClInclude Include="Payments.h" />
+    <ClInclude Include="orderFood.h" />
     <ClInclude Include="Menus.h" />
     <ClInclude Include="Sha256.h" />
   </ItemGroup>

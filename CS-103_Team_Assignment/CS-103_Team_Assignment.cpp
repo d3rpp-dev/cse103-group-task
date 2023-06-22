@@ -1,57 +1,40 @@
+#pragma once
 #include "Common.h"
-#include "Menus.h"
+
+#include "Menus.h" 
+#include "orderFood.h"
+#include "Payments.h"
 
 // i hate this line, don't
 using namespace std;
-
-/*double calculateBill(int choice, int quantity) {
-	double price;
-	switch (choice) {
-	case 1:
-		price = 3.00;
-		break;
-	case 2:
-		price = 3.50;
-		break;
-	case 3:
-		price = 3.00;
-		break;
-	case 4:
-		price = 5.00;
-		break;
-	case 5:
-		price = 2.50;
-		break;
-	case 6:
-		price = 2.00;
-		break;
-	case 7:
-		price = 2.00;
-		break;
-	default:
-		price = 0.00;
-		break;
-
-	}
-}
-*/
+using namespace menus;
 
 int main()
 {
-	
+	int order;
+
 	bool should_exit = false;
 	do {
 		menus::welcomeMessage();
 		menus::mainMenu();
 
-		int choice, quantity;
-		double totalBill;
-		char paymentMethod;
 		char menuChoice;
 
 		while (true) {
-			cout << "\n\t  Please select an option: ";
-			cin >> menuChoice;
+			cout << "*                                                     *" << endl;
+			cout << "*    Please select an option:                         *" << endl;
+			cout << "*******************************************************";
+				
+			HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+			CONSOLE_SCREEN_BUFFER_INFO info;
+			GetConsoleScreenBufferInfo(console, &info);
+
+			COORD new_pos = { 35, info.dwCursorPosition.Y - 1 };
+
+			SetConsoleCursorPosition(console, new_pos);
+
+
+			menuChoice = utils::get_number<char>("", false);
 
 			bool isValid = false;
 
@@ -72,16 +55,32 @@ int main()
 			if (isValid) break;
 		}
 
+		clear();
+
+		std::vector<Item> cart;
+
 		switch (menuChoice)
 		{
 		case '3':
-			menus::foodAndDrink();
+		case '4':
+			cout << "\n*******************************************************" << endl;
+			menus::foodMenu();
+			cout << "*******************************************************" << endl;
+			menus::drinkMenu();
+			cout << "*******************************************************" << endl;
+			menus::deals();
+			cout << "*******************************************************" << endl;
+			if (menuChoice == '3')
+				break;
+			cart = orderFood();
+			billUser(&cart);
 			break;
 		case '5':
 			menus::exitMessage();
 			should_exit = true;
 			break;
 		}
+
 		if (menuChoice != '5') {
 			cout << "\nPress any key to continue... " << endl;
 			auto _ = _getch(); // to make the lint stfu

@@ -11,57 +11,53 @@ namespace menus {
 		cout << "*****         WELCOME TO THE ORDERING SYTEM       *****" << endl;
 		cout << "*****                                             *****" << endl;
 		cout << "*******************************************************\n" << endl;
-	}
+  }
 
 	void mainMenu() {
-		cout << "\t  [1] LOGIN" << endl;
-		cout << "\t  [2] SIGN UP" << endl;
-		cout << "\t  [3] MENU " << endl;
-		cout << "\t  [4] ORDER " << endl;
-		cout << "\t  [5] EXIT " << endl;
-	}
-
-	void foodMenu() {
-		cout << "*\t             FOOD:                            *" << endl;
-		cout << "*\t  1. PIE                -  $3.00              *" << endl;
-		cout << "*\t  2. HAMBURGER          -  $3.50              *" << endl;
-		cout << "*\t  3. SAUSAGE ROLL       -  $3.00              *" << endl;
-		cout << "*\t  4. CHICKEN WRAP       -  $5.00              *" << endl;
-		cout << "*\t  5. CHOCOLATE MUFFIN   -  $2.50              *" << endl;
-		cout << "*\t  6. BROWNIE            -  $2.00              *" << endl;
-	}
-
-
-	void drinkMenu() {
-		cout << "*\t         DRINKS $2.00 EACH:                   *" << endl;
-		cout << "*\t  1. COKE                                     *" << endl;
-		cout << "*\t  2. ORANGE JUICE                             *" << endl;
-		cout << "*\t  3. APPLE JUICE                              *" << endl;
-		cout << "*\t  4. SPRITE                                   *" << endl;
-		cout << "*\t  5. L&P                                      *" << endl;
-		cout << "*\t  6. NONE                                     *" << endl;
-	}
-
-	void deals() {
-		cout << "\nCURRENT DEALS:" << endl;
-		cout << "BUY A PIE & DRINK, GET BROWNIE FOR FREE!!!" << endl;
-		cout << "BUY A CHICKEN WRAP GET DRINK HALF PRICE!!!" << endl;
-	}
-
-	void orderFood() {
-		cout << "ORDER PLACEHOLDER" << endl;
-	}
-
-	void foodAndDrink() {
-		cout << "\n*******************************************************" << endl;
-		foodMenu();
 		cout << "*******************************************************" << endl;
-		drinkMenu();
-		cout << "*******************************************************\n" << endl;
+		cout << "*      [1] LOGIN                                      *" << endl;
+		cout << "*      [2] SIGN UP                                    *" << endl;
+		cout << "*      [3] MENU                                       *" << endl;
+		cout << "*      [4] ORDER                                      *" << endl;
+		cout << "*      [5] EXIT                                       *" << endl;
+
 	}
 
-	void exitMessage() {
-		cout << "THANK YOU FOR USING THE SCHOOL LUNCH ORDERING SYSTEM" << endl;
-		cout << "GOODBYE" << endl;
+	//function for the food menu
+	void foodMenu()
+	{
+		cout << "*                                                     *" << endl;
+		cout << "*                 FOOD:                               *" << endl;
+		cout << "*      1. PIE                -  $3.00                 *" << endl;
+		cout << "*      2. HAMBURGER          -  $3.50                 *" << endl;
+		cout << "*      3. SAUSAGE ROLL       -  $3.00                 *" << endl;
+		cout << "*      4. CHICKEN WRAP       -  $5.00                 *" << endl;
+		cout << "*      5. CHOCOLATE MUFFIN   -  $2.50                 *" << endl;
+		cout << "*      6. BROWNIE            -  $2.00                 *" << endl;
+		cout << "*                                                     *" << endl;
 	}
+
+	//function for the drinks menu
+	void drinkMenu()
+	{
+		cout << "*                                                     *" << endl;
+		cout << "*                  DRINKS:                            *" << endl;
+		cout << "*      7. COKE               -  $2.00                 *" << endl;
+		cout << "*      8. ORANGE JUICE       -  $2.00                 *" << endl;
+		cout << "*      9. APPLE JUICE        -  $2.00                 *" << endl;
+		cout << "*      10. SPRITE            -  $2.00                 *" << endl;
+		cout << "*      11. L&P               -  $2.00                 *" << endl;
+		cout << "*                                                     *" << endl;
+	}
+
+	//function for the deals
+	void deals()
+	{
+		cout << "*                                                     *" << endl;
+		cout << "*        ***CURRENT DEALS***                          *" << endl;
+		cout << "*                                                     *" << endl;
+		cout << "*    BUY A PIE & DRINK, GET A BROWNIE FOR FREE!!!     *" << endl;
+		cout << "*    BUY A CHICKEN WRAP GET A BROWNIE FOR FREE!!!     *" << endl;
+		cout << "*                                                     *" << endl;
+	}	
 }
