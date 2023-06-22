@@ -33,6 +33,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Payments.h">
+    <ClInclude Include="Menus.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

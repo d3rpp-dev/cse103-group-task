@@ -1,12 +1,13 @@
 #pragma once
 #include "Common.h"
+
 #include "Menus.h" 
 #include "orderFood.h"
 #include "Payments.h"
 
+// i hate this line, don't
 using namespace std;
 using namespace menus;
-
 
 int main()
 {
@@ -74,20 +75,15 @@ int main()
 			cart = orderFood();
 			billUser(&cart);
 			break;
-
 		case '5':
-			cout << "********************************************************" << endl;
-			cout << "* THANK YOU FOR USING THE SCHOOL LUNCH ORDERING SYSTEM *" << endl;
-			cout << "*                       GOODBYE                        *" << endl;
-			cout << "********************************************************" << endl;
-
+			menus::exitMessage();
 			should_exit = true;
 			break;
 		}
 
 		if (menuChoice != '5') {
 			cout << "\nPress any key to continue... " << endl;
-			_getch();
+			auto _ = _getch(); // to make the lint stfu
 			clear();
 		}
 	} while (!should_exit);

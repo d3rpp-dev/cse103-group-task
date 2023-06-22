@@ -5,17 +5,14 @@
 using namespace std;
 
 namespace menus {
-
-	//function for the welcome message
 	void welcomeMessage() {
 		cout << "*******************************************************" << endl;
 		cout << "*****                                             *****" << endl;
 		cout << "*****         WELCOME TO THE ORDERING SYTEM       *****" << endl;
 		cout << "*****                                             *****" << endl;
 		cout << "*******************************************************\n" << endl;
-	}
+  }
 
-	//function for the main menu
 	void mainMenu() {
 		cout << "*******************************************************" << endl;
 		cout << "*      [1] LOGIN                                      *" << endl;
