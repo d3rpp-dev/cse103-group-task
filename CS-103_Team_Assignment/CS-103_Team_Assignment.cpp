@@ -1,6 +1,8 @@
 #pragma once
 #include "Common.h"
 #include "Menus.h" 
+#include "orderFood.h"
+#include "Payments.h"
 
 using namespace std;
 using namespace menus;
@@ -12,8 +14,8 @@ int main()
 
 	bool should_exit = false;
 	do {
-		welcomeMessage();
-		mainMenu();
+		menus::welcomeMessage();
+		menus::mainMenu();
 
 		char menuChoice;
 
@@ -21,7 +23,7 @@ int main()
 			cout << "*                                                     *" << endl;
 			cout << "*    Please select an option:                         *" << endl;
 			cout << "*******************************************************";
-
+				
 			HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 			CONSOLE_SCREEN_BUFFER_INFO info;
 			GetConsoleScreenBufferInfo(console, &info);
@@ -31,7 +33,7 @@ int main()
 			SetConsoleCursorPosition(console, new_pos);
 
 
-			cin >> menuChoice;
+			menuChoice = utils::get_number<char>("", false);
 
 			bool isValid = false;
 
@@ -54,20 +56,23 @@ int main()
 
 		clear();
 
+		std::vector<Item> cart;
+
 		switch (menuChoice)
 		{
 		case '3':
 		case '4':
 			cout << "\n*******************************************************" << endl;
-			foodMenu();
+			menus::foodMenu();
 			cout << "*******************************************************" << endl;
-			drinkMenu();
+			menus::drinkMenu();
 			cout << "*******************************************************" << endl;
-			deals();
+			menus::deals();
 			cout << "*******************************************************" << endl;
 			if (menuChoice == '3')
 				break;
-			orderFood();
+			cart = orderFood();
+			billUser(&cart);
 			break;
 
 		case '5':

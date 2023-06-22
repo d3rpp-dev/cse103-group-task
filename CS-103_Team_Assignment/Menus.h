@@ -6,36 +6,6 @@ using namespace std;
 
 namespace menus {
 
-	struct Item {
-		uint8_t id;
-		string name;
-		float price;
-
-		string display() {
-			stringstream ss;
-			ss << name << ": $" << std::setprecision(2) << price;
-			return ss.str();
-		}
-	};
-
-
-	const Item FOOD_PRICE[11] = {
-		// food
-		{1, "PIE", 3.0},
-		{2, "HAMBURGER", 3.50},
-		{3, "SAUSAGE ROLL", 3.0},
-		{4, "CHICKEN WRAP", 5.0},
-		{5, "CHOCOLATE MUFFIN", 2.50},
-		{6, "BROWNIE", 2.0},
-
-		// drinks
-		{7, "COKE", 2.0},
-		{8, "ORANGE JUICE", 2.0},
-		{9, "APPLE JUICE", 2.0},
-		{10, "SPRITE", 2.0},
-		{11, "L&P", 2.0}
-	};
-
 	//function for the welcome message
 	void welcomeMessage() {
 		cout << "*******************************************************" << endl;
@@ -92,66 +62,5 @@ namespace menus {
 		cout << "*    BUY A PIE & DRINK, GET A BROWNIE FOR FREE!!!     *" << endl;
 		cout << "*    BUY A CHICKEN WRAP GET A BROWNIE FOR FREE!!!     *" << endl;
 		cout << "*                                                     *" << endl;
-	}
-
-	void orderFood()
-	{
-		vector<Item> cart{};
-		bool done = false;
-		while (!done) {
-			int choice = utils::get_number<int>("Please enter the number corresponding to what you want");
-			if (choice > 0 && choice < 12) {
-				cout << "You have chosen - " << FOOD_PRICE[--choice].name << endl;
-			}
-			else {
-				cout << "Please enter correct number: ";
-				continue;
-			}
-
-			// --choice appears above, so we needn't do it again
-			cart.push_back(FOOD_PRICE[choice]);
-
-			char order_again = utils::get_char("Would you like anything else? [Y/n]");
-			utils::to_lower(order_again);
-
-			if (order_again == 'n') {
-				done = true;
-			}
-		}
-
-		bool has_pie = false, has_brownie = false, has_drink = false, has_chicken_wrap = false;
-		
-		for (uint8_t i = 0; i < cart.size(); i++) {
-			uint8_t n = cart[i].id;
-			switch (n) {
-			case 1: // pie
-				has_pie = true;
-				break;
-			case 4: // chicken wrap
-				has_chicken_wrap = true;
-				break;
-			case 6: // brownie
-				has_brownie = true;
-				break;
-			case 7:
-			case 8:
-			case 9:
-			case 10:
-			case 11: // all drinks
-				has_drink = true;
-				break;
-			}
-		}
-
-		Item negative_brownie = {
-			12, "Deal: Free Brownie", -2.0
-		};
-
-		if ((has_pie && has_drink) || has_chicken_wrap) {
-			if (!has_brownie) cart.push_back(FOOD_PRICE[5]);
-			cart.push_back(negative_brownie);
-		}
-	}
-
-
+	}	
 }

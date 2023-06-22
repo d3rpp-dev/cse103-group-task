@@ -34,6 +34,48 @@ void clear() {
     SetConsoleCursorPosition(console, topLeft);
 }
 
+struct Item {
+	uint8_t id;
+	std::string name;
+	float price;
+
+	std::string display() {
+		std::stringstream ss;
+		ss << (price < 0.0f ? "  " : "") << name;
+
+		for (uint8_t _i = 0; _i < (25 - (name.length() + (price < 0.0f ? 2 : 0))); _i++) {
+			ss << ' ';
+		}
+
+		if (price < 0.0f)
+			ss << " -$";
+		else
+			ss << "  $";
+
+		ss << std::setprecision(2) << std::abs(price);
+
+		return ss.str();
+	}
+};
+
+
+const Item FOOD_PRICE[11] = {
+	// food
+	{1, "PIE", 3.0},
+	{2, "HAMBURGER", 3.50},
+	{3, "SAUSAGE ROLL", 3.0},
+	{4, "CHICKEN WRAP", 5.0},
+	{5, "CHOCOLATE MUFFIN", 2.50},
+	{6, "BROWNIE", 2.0},
+
+	// drinks
+	{7, "COKE", 2.0},
+	{8, "ORANGE JUICE", 2.0},
+	{9, "APPLE JUICE", 2.0},
+	{10, "SPRITE", 2.0},
+	{11, "L&P", 2.0}
+};
+
 
 namespace trim {
 	/*
@@ -63,18 +105,32 @@ namespace trim {
 }
 
 namespace utils {
+	// src: https://stackoverflow.com/questions/236129/how-do-i-iterate-over-the-words-of-a-string
+	static inline void split(const std::string& s, char delim, std::vector<std::string>* result) {
+		std::istringstream iss(s);
+		std::string item;
+		while (std::getline(iss, item, delim)) {
+			result->push_back(item);
+		}
+	}
 	// this allows it to take different kinds of numbers
 	//
 	// including floats
 	template<typename T>
-	static inline T get_number(std::string query) {
-		std::cout << BLUE << query << RESET << std::endl << PROMPT;
-		T a{};
+	static inline T get_number(std::string query, bool prompt = true) {
+		std::cout << BLUE << query << RESET;
+		if (prompt) std::cout << RESET << std::endl << PROMPT;
+		std::string line;
 
 		std::cin.clear();
-		std::cin >> a;
+		std::getline(std::cin, line);
 
-		return a;
+		std::stringstream s(line);
+
+		T out;
+		s >> out;
+
+		return out;
 	}
 
 	// this is formatted weirdly because we need to handle blank line entering.
@@ -100,10 +156,13 @@ namespace utils {
 		std::string a{};
 
 		std::cin.clear();
-		std::cin >> a;
+		std::getline(std::cin, a);
 		std::cin.clear();
 
-		return a;
+		std::vector<std::string> o;
+		utils::split(a, ' ', &o);
+
+		return o.size() > 0 ? o[0] : "";
 	}
 
 	static inline std::string get_line(std::string prompt) {
@@ -167,14 +226,5 @@ namespace utils {
 
 	static inline int gen_random_int(int min = 0, int max = INT32_MAX) {
 		return (rand() % max) + min;
-	}
-
-	// src: https://stackoverflow.com/questions/236129/how-do-i-iterate-over-the-words-of-a-string
-	static inline void split(const std::string& s, char delim, std::vector<std::string>* result) {
-		std::istringstream iss(s);
-		std::string item;
-		while (std::getline(iss, item, delim)) {
-			result->push_back(item);
-		}
 	}
 }
