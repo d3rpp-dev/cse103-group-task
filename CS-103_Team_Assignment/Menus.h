@@ -63,7 +63,6 @@ namespace menus {
 
 	void exitMessage() 
 	{
-		cout << "ENDING PROGRAMME..." << endl;
-		cout << "GOOBYE" << endl;
+		cout << "GOODBYE" << endl;
 	}
 }
