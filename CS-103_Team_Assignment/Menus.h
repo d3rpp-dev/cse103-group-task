@@ -1,17 +1,16 @@
 #pragma once
 #include "Common.h"
 
-// no
 using namespace std;
 
 namespace menus {
 	void welcomeMessage() {
-		cout << "*******************************************************" << endl;
+		cout << "\n*******************************************************" << endl;
 		cout << "*****                                             *****" << endl;
 		cout << "*****         WELCOME TO THE ORDERING SYTEM       *****" << endl;
 		cout << "*****                                             *****" << endl;
 		cout << "*******************************************************\n" << endl;
-  }
+	}
 
 	void mainMenu(bool is_logged_in) {
 		cout << "*******************************************************" << endl;
@@ -64,11 +63,10 @@ namespace menus {
 		cout << "*    BUY A PIE & DRINK, GET A BROWNIE FOR FREE!!!     *" << endl;
 		cout << "*    BUY A CHICKEN WRAP GET A BROWNIE FOR FREE!!!     *" << endl;
 		cout << "*                                                     *" << endl;
-	}	
+	}
 
-	void exitMessage() 
+	void exitMessage()
 	{
-		cout << "ENDING PROGRAMME..." << endl;
-		cout << "GOOBYE" << endl;
+		cout << "NOW EXITING PROGRAM" << endl;
 	}
 }

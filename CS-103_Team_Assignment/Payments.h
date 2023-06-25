@@ -22,7 +22,7 @@ void billUser(std::vector<Item>* cart) {
 		totalPayment += payment;
 		
 		if (totalPayment < totalPrice)
-			std::cout << "You still need to pay $" << totalPrice - totalPayment;
+			std::cout << "You still need to pay $" << totalPrice - totalPayment << "\n";
 	} while (totalPayment < totalPrice);
 
 

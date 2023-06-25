@@ -19,14 +19,18 @@ int main()
 	bool should_exit = false;
 	do {
 		clear();
+		menus::welcomeMessage();
 		if (current_account == nullptr) {
+			cout << "*******************************************************" << endl;
 			cout << "*                                                     *" << endl;
 			cout << "*    Not Signed In                                    *" << endl;
 			cout << "*                                                     *" << endl;
+			cout << "*******************************************************" << endl;
 		}
 		else {
 			int total_width_of_name = 33;
 
+			cout << "*******************************************************" << endl;
 			cout << "*                                                     *" << endl;
 			cout << "*    Signed In As: ";
 
@@ -37,8 +41,9 @@ int main()
 			
 			cout << "  *" << endl;
 			cout << "*                                                     *" << endl;
+			cout << "*******************************************************" << endl;
 		}
-		menus::welcomeMessage();
+		
 		menus::mainMenu(current_account != nullptr);
 
 		char menuChoice;
@@ -75,7 +80,7 @@ int main()
 				isValid = true;
 				break;
 			default:
-				cout << "ERROR..." << endl;
+				cout << "\n*    ERROR...                                         *" << endl;
 				continue;
 			}
 
@@ -90,14 +95,18 @@ int main()
 		{
 		case '1':
 			// login
-			current_account = login(&accs);
+			if (current_account == nullptr)
+				current_account = login(&accs);
 			break;
 		case '2':
 			// sign up
-			sign_up(&accs);
+			if (current_account == nullptr)
+				sign_up(&accs);
 			break;
 		case '3':
 			// sign out
+			if (current_account == nullptr)
+				break;
 			current_account = nullptr;
 			std::cout << "Signed Out" << std::endl;
 			break;
@@ -130,7 +139,7 @@ int main()
 
 		if (menuChoice != '6' && menuChoice != 'e') {
 			cout << "\nPress any key to continue... " << endl;
-			auto _ = _getch(); // to make the lint stfu
+			auto _ = _getch(); // to make the lint stop
 			clear();
 		}
 	} while (!should_exit);
