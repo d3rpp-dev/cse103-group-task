@@ -13,13 +13,18 @@ namespace menus {
 		cout << "*******************************************************\n" << endl;
   }
 
-	void mainMenu() {
+	void mainMenu(bool is_logged_in) {
 		cout << "*******************************************************" << endl;
-		cout << "*      [1] LOGIN                                      *" << endl;
-		cout << "*      [2] SIGN UP                                    *" << endl;
-		cout << "*      [3] MENU                                       *" << endl;
-		cout << "*      [4] ORDER                                      *" << endl;
-		cout << "*      [5] EXIT                                       *" << endl;
+		if (!is_logged_in) {
+			cout << "*      [1] LOGIN                                      *" << endl;
+			cout << "*      [2] SIGN UP                                    *" << endl;
+		}
+		else {
+			cout << "*      [3] SIGN OUT                                   *" << endl;
+			cout << "*      [4] MENU                                       *" << endl;
+			cout << "*      [5] ORDER                                      *" << endl;
+		}
+		cout << "*      [E] EXIT                                       *" << endl;
 
 	}
 

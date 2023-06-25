@@ -1,5 +1,5 @@
 #pragma once
-#include "Common.h";
+#include "Common.h"
 
 void billUser(std::vector<Item>* cart) {
 	
@@ -17,17 +17,20 @@ void billUser(std::vector<Item>* cart) {
 
 	std::cout << std::endl << "Total price                $" << totalPrice << std::endl;
 
-
 	do {
 		payment = utils::get_number<float>("your payment");
 		totalPayment += payment;
 		
-		if (totalPayment < totalPayment)
+		if (totalPayment < totalPrice)
 			std::cout << "You still need to pay $" << totalPrice - totalPayment;
 	} while (totalPayment < totalPrice);
 
 
 	change = (totalPayment - totalPrice);
-	std::cout << "Your change is $" << change << std::endl;
+
+	if (change != 0.0)
+		std::cout << "Your change is $" << change << std::endl;
+	else
+		std::cout << "Exact Payment, No Change" << std::endl;
 
 }

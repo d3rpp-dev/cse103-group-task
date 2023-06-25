@@ -135,7 +135,7 @@ void Sha256::revert(uint8_t* hash) {
 	// SHA uses BE ordering
 	// revert all bytes
 	for (uint8_t i = 0; i < 4; i++) {
-		for (uint8_t j = 0; j < 8; i++) {
+		for (uint8_t j = 0; j < 8; j++) {
 			hash[i + (j * 4)] = (m_state[j] >> (24 - i * 8)) & 0x000000ff;
 		}
 	}

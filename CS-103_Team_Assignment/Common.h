@@ -202,6 +202,25 @@ namespace utils {
 		return a;
 	}
 
+	static inline std::string get_password(std::string prompt) {
+		HANDLE StdInput = GetStdHandle(STD_INPUT_HANDLE);
+		DWORD mode = 0;
+
+		// get current console mode
+		GetConsoleMode(StdInput, &mode);
+		// turn off character echoing as this would display the password on the users screen
+		SetConsoleMode(StdInput, mode & (~ENABLE_ECHO_INPUT));
+
+		std::string pw = utils::get_line(prompt);
+		std::cout << std::endl; // turned off echoing for this line, so the newline isn't printed, so we need to print it ourselves to prevent cringe
+
+		// re-enable as we now have the password and can echo text now
+		SetConsoleMode(StdInput, mode);
+
+		// ily w32api /s
+		return pw;
+	}
+
 	//
 	// works by using ESC[2J to clear the terminal screen (typically works on windows)
 	// then using ESC[1;1H to set the cursor to the top left, where we want it
