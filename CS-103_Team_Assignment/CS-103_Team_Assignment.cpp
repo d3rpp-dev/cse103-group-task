@@ -1,16 +1,18 @@
 #pragma once
+//include all the header files 
 #include "Common.h"
 #include "Accounts.h"
 #include "Menus.h"
-
 #include "Menus.h" 
 #include "orderFood.h"
 #include "Payments.h"
 
-// i hate this line, don't
+
 using namespace std;
 using namespace menus;
 
+
+//main code
 int main()
 {
 	Accounts accs{};
@@ -19,7 +21,9 @@ int main()
 	bool should_exit = false;
 	do {
 		clear();
+		//print the welcome message
 		menus::welcomeMessage();
+		// if the user is not signed in
 		if (current_account == nullptr) {
 			cout << "*******************************************************" << endl;
 			cout << "*                                                     *" << endl;
@@ -27,6 +31,7 @@ int main()
 			cout << "*                                                     *" << endl;
 			cout << "*******************************************************" << endl;
 		}
+		// if the user is signed in
 		else {
 			int total_width_of_name = 33;
 
@@ -121,17 +126,17 @@ int main()
 			cout << "*******************************************************" << endl;
 			menus::deals();
 			cout << "*******************************************************" << endl;
-			// menu printed regardless
-			// so print menu to prevent code duplication
-			// if was menu only break here, otherwise 
-			// continue through ordering process
+			/* menu printed regardless
+			so print menu to prevent code duplication
+			if was menu only break here, otherwise 
+			continue through ordering process */
 			if (menuChoice == '4')
 				break;
 			cart = orderFood();
 			billUser(&cart);
 			break;
 		case '6':
-		case 'e': // E to *E*xit
+		case 'e': // E to Exit
 			menus::exitMessage();
 			should_exit = true;
 			break;
@@ -139,7 +144,7 @@ int main()
 
 		if (menuChoice != '6' && menuChoice != 'e') {
 			cout << "\nPress any key to continue... " << endl;
-			auto _ = _getch(); // to make the lint stop
+			auto _ = _getch(); // to make the line stop
 			clear();
 		}
 	} while (!should_exit);

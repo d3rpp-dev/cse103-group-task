@@ -4,6 +4,7 @@
 using namespace std;
 
 namespace menus {
+	//function for welcome message
 	void welcomeMessage() {
 		cout << "\n*******************************************************" << endl;
 		cout << "*****                                             *****" << endl;
@@ -12,6 +13,7 @@ namespace menus {
 		cout << "*******************************************************\n" << endl;
 	}
 
+	//function for main menu
 	void mainMenu(bool is_logged_in) {
 		cout << "*******************************************************" << endl;
 		if (!is_logged_in) {
@@ -65,6 +67,7 @@ namespace menus {
 		cout << "*                                                     *" << endl;
 	}
 
+	//function for exit message
 	void exitMessage()
 	{
 		cout << "NOW EXITING PROGRAM" << endl;
