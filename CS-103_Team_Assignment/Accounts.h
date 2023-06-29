@@ -88,6 +88,11 @@ public:
 	}
 
 	void add_account(std::string account_name, std::string password_raw) {
+		if (find_account(account_name) != nullptr) {
+			std::cout << "Account already Exists" << std::endl;
+			return;
+		}
+
 		Sha256 sha{};
 		sha.update(password_raw);
 
